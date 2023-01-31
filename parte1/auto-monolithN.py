@@ -1,36 +1,31 @@
 #!/usr/bin/python3
 
-# REALIZADO POR GABRIEL ARTERO MONSALVATJE Y CARLOTA RUIZ DE CONEJO DE LA SEN
-
 import logging
 import sys
 from subprocess import call
 import os
 
-
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger('pc2')
 
-
-# GUARDAMOS EL VALOR DE LA VARIABLE DE ENTORNO
+# ACTUALIZAMOS EL VALOR DE LA VARIABLE DE ENTORNO
 numeroGrupo = os.environ.get("GROUP_NUMBER")
 
-# COMANDOS NECESARIOS PARA LA PUESTA EN MARCHA DE LA APLICACIÓN	
+# CLONAMOS EL REPOSITORIO	
 call(["git", "clone", "https://github.com/CDPS-ETSIT/practica_creativa2.git"])
-logger.debug("Repositorio clonado correctamente")
+logger.debug("Repositorio clonado")
 
 # ACTUALIZAMOS EL SISTEMA
 call(["sudo", "apt-get", "update"])
-logger.debug("Sistema actualizado")
+logger.debug("El sistema se ha actualizado")
 
-# INSTALAMOS PIP
+# INSTALAMOS EL ADMINISTRADOR DE PAQUETES PIP
 call(["sudo", "apt-get", "install", "python3-pip"])
-logger.debug("pip se ha instalado correctamente")
+logger.debug("pip se ha instalado")
 
-# AÑADIMOS LOS REQUIREMENTS NECESARIOS
+# AÑADIMOS LOS REQUIREMENTS
 call(["pip3", "install", "-r", "practica_creativa2/bookinfo/src/productpage/requirements.txt"])
 logger.debug("Las dependencias han sido instaladas")
-
 
 # MODIFICAMOS EL TITULO DE LA APLICACION
 call(["cp", "practica_creativa2/bookinfo/src/productpage/templates/productpage.html", "practica_creativa2/bookinfo/src/productpage/templates/productpageCopia.html"])
@@ -43,8 +38,7 @@ for line in fCopia:
         fOriginal.write(line)
 fOriginal.close()
 fCopia.close()
-logger.debug("Se ha actualizado el título de la aplicación")
-
+logger.debug("El titulo de la aplicación ha sido actualizado")
 
 # ARRANCAMOS LA APLICACIÓN
 call(["python3", "practica_creativa2/bookinfo/src/productpage/productpage_monolith.py", "9080"])
