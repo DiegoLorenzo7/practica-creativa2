@@ -9,4 +9,4 @@ ENV GROUP_NUMBER 37
 EXPOSE 9080
 COPY apliDocker.py .
 
-CMD ["python3","apliDocker.py"]
+CMD ["python3","apliDocker.py","9080"]
