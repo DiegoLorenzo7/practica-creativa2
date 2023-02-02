@@ -1,47 +1,30 @@
-version: '3.3'
 services:
-  productpage:
-    build:
-      context: .
-      dockerfile: Dockerfile-Productpage
-    image: 37/productpage
-    restart: always
+  product-page:
+    image: g37/product-page
+    container_name: g37-product-page
     ports: 
-     - 9080:9080
-    links:
-      - details
-      - reviews
-  
+      - "9080:9080"
+    environment:
+      - GROUP_NUMBER=37
+
   details:
-    build:
-      context: .
-      dockerfile: Dockerfile-Details
-    image: 37/details
-    restart: always
-    expose: 
-     - 9080
-  
+    image: g37/details
+    container_name: g37-details
+    ports: 
+      - "9080:9080"
+    depends_on: 
+      - product-page
+
   reviews:
-    build:
-      context: .
-      dockerfile: Dockerfile-Reviews
-     
-    environment: 
-      - SERVICE_VERSION=v1
-      - ENABLE_RATINGS=false
-      - STAR_COLOR=black
-    image: 37/reviews
-    restart: always
-    expose: 
-     - 9080
-    links:
-      - ratings
-  
+    image: g37/reviews:v3
+    container_name: g37-reviews
+    depends_on: 
+      - product-page
+
   ratings:
-    build:
-      context: .
-      dockerfile: Dockerfile-Ratings
-    image: 37/ratings
-    restart: always
-    expose: 
-     - 9080
+    image: g37/ratings
+    container_name: g37-ratings
+    ports: 
+      - "9082:9080"
+    depends_on: 
+      - reviews
