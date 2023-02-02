@@ -1,44 +1,48 @@
 version: '3.7'
 
 services:
+  
   productpage:
     build:
       context: .
       dockerfile: Dockerfile-productpage
-    image: 37/productpage 
-    container_name: 37-productpage
+    image: grupo37/productpage 
+    container_name: grupo37-productpage
     ports:
      - '9080:9080'
     environment:
      - GROUP_NUMBER=37
+  
   details:
     build:
       context: .
       dockerfile: Dockerfile-details
-    image: 37/details
-    container_name: 37-details
+    image: grupo37/details
+    container_name: grupo37-details
     ports:
      - '9080'
     environment:
      - ENABLE_EXTERNAL_BOOK_SERVICE=true
      - SERVICE_VERSION=v3
+  
   reviews:
     build:
       context: practica_creativa2/bookinfo/src/reviews/reviews-wlpcfg
-    image: 37/reviews
-    container_name: 37-reviews
+    image: grupo37/reviews
+    container_name: grupo37-reviews
     ports:
      - '9080'
     environment:
      - ENABLE_RATINGS=true
      - STAR_COLOR=red
      - SERVICE_VERSION=v3
+  
   ratings:
     build:
       context: .
       dockerfile: Dockerfile-ratings
-    image: 37/ratings
-    container_name: 37-ratings
+    image: grupo37/ratings
+    container_name: grupo37-ratings
     ports:
      - '9080'
     environment:
