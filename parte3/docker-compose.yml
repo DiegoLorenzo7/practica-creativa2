@@ -1,30 +1,45 @@
+version: '3.7'
+
 services:
-  product-page:
-    image: g37/product-page
-    container_name: g37-product-page
-    ports: 
-      - "9080:9080"
+  productpage:
+    build:
+      context: .
+      dockerfile: Dockerfile-productpage
+    image: 37/productpage 
+    container_name: 37-productpage
+    ports:
+     - '9080:9080'
     environment:
-      - GROUP_NUMBER=37
-
+     - GROUP_NUMBER=37
   details:
-    image: g37/details
-    container_name: g37-details
-    ports: 
-      - "9081:9080"
-    depends_on: 
-      - product-page
-
+    build:
+      context: .
+      dockerfile: Dockerfile-details
+    image: 37/details
+    container_name: 37-details
+    ports:
+     - '9080'
+    environment:
+     - ENABLE_EXTERNAL_BOOK_SERVICE=true
+     - SERVICE_VERSION=v3
   reviews:
-    image: g37/reviews:v3
-    container_name: g37-reviews
-    depends_on: 
-      - product-page
-
+    build:
+      context: practica_creativa2/bookinfo/src/reviews/reviews-wlpcfg
+    image: 37/reviews
+    container_name: 37-reviews
+    ports:
+     - '9080'
+    environment:
+     - ENABLE_RATINGS=true
+     - STAR_COLOR=red
+     - SERVICE_VERSION=v3
   ratings:
-    image: g37/ratings
-    container_name: g37-ratings
-    ports: 
-      - "9082:9080"
-    depends_on: 
-      - reviews
+    build:
+      context: .
+      dockerfile: Dockerfile-ratings
+    image: 37/ratings
+    container_name: 37-ratings
+    ports:
+     - '9080'
+    environment:
+     - SERVICE_VERSION=v3
