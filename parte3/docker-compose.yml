@@ -2,7 +2,7 @@ version: '3'
 services:
   productpage:
     build:
-      context: ./Dockerfiles/ProductPage/
+      context: ./Dockerfile-Productpage/
       dockerfile: Dockerfile.productpage
     image: g37/productpage
     container_name: g37-productpage
@@ -12,7 +12,7 @@ services:
       - 9080:9080
   details:
     build:
-      context: ./Dockerfiles/Details/
+      context: ./Dockerfile-Details/
       dockerfile: Dockerfile.details
     image: g37/details
     container_name: g37-details
@@ -25,7 +25,7 @@ services:
       - 9081:9080
   ratings:
     build:
-      context: ./Dockerfiles/Ratings/
+      context: ./Dockerfile-Ratings/
       dockerfile: Dockerfile.ratings
     image: g37/ratings
     container_name: g37-ratings
@@ -35,7 +35,7 @@ services:
       - 9083:9080
   reviews:
     build:
-      context: ./Dockerfiles/Reviews/reviews-wlpcfg
+      context: ./Dockerfile-Reviews/reviews-wlpcfg
       dockerfile: Dockerfile
     image: g37/reviews:v3
     container_name: g37-reviews
