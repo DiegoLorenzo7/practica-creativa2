@@ -5,7 +5,7 @@ services:
   productpage:
     build:
       context: .
-      dockerfile: Dockerfile-productpage
+      dockerfile: Dockerfile-Productpage
     image: grupo37/productpage 
     container_name: grupo37-productpage
     ports:
@@ -16,7 +16,7 @@ services:
   details:
     build:
       context: .
-      dockerfile: Dockerfile-details
+      dockerfile: Dockerfile-Details
     image: grupo37/details
     container_name: grupo37-details
     ports:
@@ -40,7 +40,7 @@ services:
   ratings:
     build:
       context: .
-      dockerfile: Dockerfile-ratings
+      dockerfile: Dockerfile-Ratings
     image: grupo37/ratings
     container_name: grupo37-ratings
     ports:
