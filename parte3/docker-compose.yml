@@ -25,6 +25,6 @@ services:
     image: g37/ratings
     container_name: g37-ratings
     ports: 
-      - "9082:9080"
+      - "9080:9080"
     depends_on: 
       - reviews
