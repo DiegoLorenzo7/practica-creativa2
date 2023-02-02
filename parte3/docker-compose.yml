@@ -1,30 +1,49 @@
+version: '3'
 services:
-  product-page:
-    image: g37/product-page
-    container_name: g37-product-page
-    ports: 
-      - "9080:9080"
-    environment:
-      - GROUP_NUMBER=37
-
+  productpage:
+    build:
+      context: ./Dockerfiles/ProductPage/
+      dockerfile: Dockerfile.productpage
+    image: g37/productpage
+    container_name: g37-productpage
+    volumes:
+      - ./productpage:/app
+    ports:
+      - 9080:9080
   details:
+    build:
+      context: ./Dockerfiles/Details/
+      dockerfile: Dockerfile.details
     image: g37/details
     container_name: g37-details
-    ports: 
-      - "9080:9080"
-    depends_on: 
-      - product-page
-
-  reviews:
-    image: g37/reviews:v3
-    container_name: g37-reviews
-    depends_on: 
-      - product-page
-
+    volumes:
+      - ./details:/app
+    environment:
+      - SERVICE_VERSION=v1
+      - ENABLE_EXTERNAL_BOOK_SERVICE=true
+    ports:
+      - 9081:9080
   ratings:
+    build:
+      context: ./Dockerfiles/Ratings/
+      dockerfile: Dockerfile.ratings
     image: g37/ratings
     container_name: g37-ratings
-    ports: 
-      - "9080:9080"
-    depends_on: 
-      - reviews
+    volumes:
+      - ./ratings:/app
+    ports:
+      - 9083:9080
+  reviews:
+    build:
+      context: ./Dockerfiles/Reviews/reviews-wlpcfg
+      dockerfile: Dockerfile
+    image: g37/reviews:v3
+    container_name: g37-reviews
+    volumes:
+      - ./reviews:/app
+    environment:
+      - SERVICE_VERSION=v3
+      - ENABLE_RATINGS=true
+      - STAR_COLOR=red
+    ports:
+      - 9082:9080
