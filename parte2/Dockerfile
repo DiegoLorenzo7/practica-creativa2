@@ -11,4 +11,5 @@ EXPOSE 9080
 CMD sed -i "s/Simple\sBookstore\sApp/Simple Bookstore App - GRUPO ${GROUP_NUMBER}/g" index.html; \
     sed -i "s/Simple\sBookstore\sApp/Simple Bookstore App - GRUPO ${GROUP_NUMBER}/g" productpage.html; \
     python3 /practica_creativa2/bookinfo/src/productpage/productpage_monolith.py 9080
-
+#sudo docker build -t g37/product-page .
+#sudo docker run --name g37-product-page -p 9080:9080 -e GROUP_NUMBER=37 -it g37/product-page
